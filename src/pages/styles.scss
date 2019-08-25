@@ -2,6 +2,46 @@ $font-stack: Proxima Nova;
 $secondary-color: #231d5a;
 $primary-color: #7d7f81;
 
+/* Definicion de gradientes a utilizar*/
+$gradients: () !default;
+$gradients: map-merge(
+  (
+    chill: linear-gradient(90deg, #09e485 0%, #0291e3 100%),
+    warm: linear-gradient(90deg, #f2cd48 0%, #fd803f 100%),
+    hot: linear-gradient(90deg, #f9445a 0%, #fd803f 100%),
+    calm: linear-gradient(90deg, #8019c6 0%, #2f93cc 100%),
+    cold: linear-gradient(90deg, #2bdfff 0%, #7d9eff 100%),
+    nature: linear-gradient(90deg, #5feb6c 0%, #f3d429 100%),
+    sky: linear-gradient(90deg, #7068bc 0%, #0782d4 100%),
+    sunset: linear-gradient(90deg, #fe6daa 0%, #a87efa 100%)
+  ),
+  $gradients
+);
+
+// Gradient backgrounds
+@mixin bg-gradient($parent, $gradient) {
+  #{$parent} {
+    background: $gradient;
+  }
+}
+// Gradient text
+@mixin text-gradient($parent, $gradient) {
+  #{$parent} {
+    background-image: $gradient;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+// Gradient background Classes
+@each $gradient, $value in $gradients {
+  @include bg-gradient(".bg-gradient-#{$gradient}", $value);
+}
+// Gradient text Classes
+@each $gradient, $value in $gradients {
+  @include text-gradient(".text-gradient-#{$gradient}", $value);
+}
+
 div {
   font: 100% $font-stack;
 }
@@ -11,23 +51,65 @@ body {
   color: $primary-color;
 }
 
-nav {
-  href {
-    color: $secondary-color;
-  }
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
+.form-container {
+  display: grid;
+  grid-gap: 10px;
+  width: 400px;
+  margin: 10% 40% 0% 40%;
 
-  li {
-    display: inline-block;
-  }
+  padding: 3%;
 
-  a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
-  }
+  border: 2px solid rgba(78, 81, 83, 0.438);
+  border-radius: 0.2em;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+//Custom Botton
+.btn {
+  font: 100% $font-stack;
+  font-weight: bolder;
+
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+
+  margin: 2px 0;
+  border: solid 1px transparent;
+  border-radius: 20px;
+  padding: 0.5em 1em;
+
+  color: #ffffff;
+  background-color: #9555af;
+  outline: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+.btn:hover {
+  color: #9050aa;
+  border-color: currentColor;
+  background-color: white;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5),
+    0 0 0 1.5px rgba(255, 105, 180, 0.5);
+}
+.js-focus-visible .btn:focus:not(.focus-visible) {
+  box-shadow: none;
+}
+.btn::-moz-focus-inner {
+  border: none;
 }

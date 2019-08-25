@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../components/errors.jsx";
 import "./styles.scss";
+import "./formStyle.scss";
 
 //Field Yup validation definitions
 const validationSchema = Yup.object().shape({
@@ -54,93 +55,97 @@ export default function SignUp() {
         isSubmitting
       }) => (
         <form onSubmit={handleSubmit}>
-          <h1>Regístrate con tu dirección de email</h1>
-
-          <div className="input-row">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              className={touched.email && errors.email ? "invalid-input" : null}
-            />
-            <Error touched={touched.email} message={errors.email} />
-          </div>
-
-          <div className="input-row">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Contraseña"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
+          <div className="form-container">
+            <h4>Regístrate con tu dirección de email</h4>
+            <div
               className={
-                touched.password && errors.password ? "invalid-input" : null
+                "input-group" + (touched.email && errors.email ? " error" : " ")
               }
-            />
-            <Error touched={touched.password} message={errors.password} />
-          </div>
+            >
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
+              <Error touched={touched.email} message={errors.email} />
+            </div>
 
-          <div className="input-row">
-            <label htmlFor="password_confirm">Confirmar contraseña</label>
-            <input
-              type="password"
-              name="password_confirm"
-              id="password_confirm"
-              placeholder="Confirmar contraseña"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password_confirm}
+            <div
               className={
-                touched.password_confirm && errors.password_confirm
-                  ? "invalid-input"
-                  : null
+                "input-group" +
+                (touched.password && errors.password ? " error" : " ")
               }
-            />
-            <Error
-              touched={touched.password_confirm}
-              message={errors.password_confirm}
-            />
-          </div>
+            >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+              />
+              <Error touched={touched.password} message={errors.password} />
+            </div>
 
-          <div className="input-row">
-            <label htmlFor="username">Nombre de usuario</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Usuario"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.username}
+            <div
               className={
-                touched.username && errors.username ? "invalid-input" : null
+                "input-group" +
+                (touched.password_confirm && errors.password_confirm
+                  ? " error"
+                  : " ")
               }
-            />
-            <Error touched={touched.username} message={errors.username} />
-          </div>
+            >
+              <input
+                type="password"
+                name="password_confirm"
+                id="password_confirm"
+                placeholder="Confirmar contraseña"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password_confirm}
+              />
+              <Error
+                touched={touched.password_confirm}
+                message={errors.password_confirm}
+              />
+            </div>
 
-          <div>
-            Al hacer clic en Registrarse, acepta los
-            <a href="">Términos y Condiciones de Uso </a>.
-          </div>
+            <div
+              className={
+                "input-group" +
+                (touched.username && errors.username ? " error" : " ")
+              }
+            >
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Usuario"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
+              />
+              <Error touched={touched.username} message={errors.username} />
+            </div>
 
-          <div className="input-row">
-            <button type="submit" disabled={isSubmitting}>
+            <div>
+              Al hacer clic en Registrarse, acepta los
+              <a href="">Términos y Condiciones de Uso </a>.
+            </div>
+
+            <button type="submit" class="btn" disabled={isSubmitting}>
               Regístrate
             </button>
-          </div>
 
-          <div>
-            ¿Ya tienes una cuenta?
-            <a href="">Iniciar sesión </a>.
+            <div>
+              ¿Ya tienes una cuenta?
+              <a href="">Iniciar sesión </a>.
+            </div>
           </div>
         </form>
       )}
