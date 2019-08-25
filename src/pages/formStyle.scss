@@ -1,0 +1,52 @@
+//Input fields
+.input-group {
+  color: #333;
+  float: left;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 20px;
+  margin: 0% 2% 0% 2%;
+  width: 90%;
+}
+input {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 13px;
+  height: 33px;
+  margin: 0;
+  padding: 0 0 0 15px;
+  width: 100%;
+}
+.input-group .error-message {
+  display: none;
+}
+
+.error-message {
+  color: #cc0033;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
+
+input {
+  border: 1px solid #7d7f81;
+  border-radius: 0.1em;
+}
+
+// Error Styling */
+
+.error label {
+  color: #cc0033;
+}
+
+.error input {
+  background-color: #fce4e4;
+  border: 1px solid #cc0033;
+  outline: none;
+}
+
+.error .error-message {
+  display: inline-block;
+}

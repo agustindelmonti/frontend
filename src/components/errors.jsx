@@ -2,9 +2,9 @@ import React from "react";
 
 const Error = ({ touched, message }) => {
   if (touched && message) {
-    return <a className="invalid-input">{message}</a>;
+    return <div className="error-message">{message}</div>;
   }
-  return <a className="valid-input" />;
+  return <div className="valid-input"> </div>;
 };
 
 export default Error;
