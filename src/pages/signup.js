@@ -2,9 +2,9 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../components/errors.jsx";
-import "styles.scss";
+import "./styles.scss";
 
-//Validations with Yup
+//Field Yup validation definitions
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Direccion de email invalida.")
@@ -13,11 +13,10 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
     .max(32, "La contraseña debe tener menos de 32 caracteres")
-
-    .required(),
+    .required("Campo obligatorio"),
   password_confirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden.")
-    .required(),
+    .required("Campo obligatorio"),
   username: Yup.string()
     .min(5, "Usuario debe tener al menos 5 caracteres")
     .max(30, "Usuario demasiado grande.")
@@ -31,8 +30,17 @@ export default function SignUp() {
     password_confirm: "",
     username: ""
   };
+
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setSubmitting(true);
+
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
       {({
         values,
         errors,
@@ -42,8 +50,7 @@ export default function SignUp() {
         handleSubmit,
         isSubmitting
       }) => (
-        <form>
-          {(JSON.stringify(values), JSON.stringify(errors))}
+        <form onSubmit={handleSubmit}>
           <h1>Regístrate con tu dirección de email</h1>
 
           <div className="input-row">
@@ -119,16 +126,18 @@ export default function SignUp() {
 
           <div>
             Al hacer clic en Registrarse, acepta los
-            <href>Términos y Condiciones de Uso </href>.
+            <a href="">Términos y Condiciones de Uso </a>.
           </div>
 
           <div className="input-row">
-            <button type="submit">Regístrate</button>
+            <button type="submit" disabled={isSubmitting}>
+              Regístrate
+            </button>
           </div>
 
           <div>
             ¿Ya tienes una cuenta?
-            <href>Iniciar sesión </href>.
+            <a href="">Iniciar sesión </a>.
           </div>
         </form>
       )}
