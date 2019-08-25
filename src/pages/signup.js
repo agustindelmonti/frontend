@@ -11,9 +11,12 @@ const validationSchema = Yup.object().shape({
     .max(255, "Debe ser menor a 255 caracteres.")
     .required("Campo obligatorio"),
   password: Yup.string()
-    .min(8, "La contraseña debe tener al menos 8 caracteres")
     .max(32, "La contraseña debe tener menos de 32 caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo obligatorio")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/,
+      "Debe tener al menos 8 caracteres, 1 letra mayuscula, 1 letra minuscula, 1 numero y un caracter especial."
+    ),
   password_confirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden.")
     .required("Campo obligatorio"),
