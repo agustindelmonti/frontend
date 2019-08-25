@@ -2,7 +2,6 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../components/errors.jsx";
-
 import "../styles/formStyle.scss";
 import "../styles/styles.scss";
 import NavBar from "../components/navbar.jsx";

@@ -12,22 +12,32 @@ $font-stack: Proxima Nova;
 
 .header{
     width: 1920px;
-    height: 88px;
+    height: 80px;
     background-color: #182D40;
 }
 
 .inputSearch{
    text-align: left;
    width: 410px;
-   height: 50px;
+   height: 40px;
    background-color: #3F4448;
    color: #919191;
    font-size: 25px;
+   -webkit-border-radius: 50px;
+   -moz-border-radius: 50px;
+   border-radius: 50px;
    position: absolute;
    left: 757px;
-   top: 21px;
+   top: 20px;
     
 }
+
+.inputSearch::placeholder{
+ 
+    text-align: center;
+       
+   }
+  
 
 .plus{
     position: absolute;
