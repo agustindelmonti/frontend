@@ -3,12 +3,15 @@ import {Component} from "react";
 import "../styles/interestcard.scss"
 
 export default class InterestCard extends Component{
+
     render(){
         return(
-            <div className="interestcard">
-                <label className="interestname">Arte</label>
+            <button className="interestcard">
+                {this.props.mytext}
+                
+            </button>
 
-            </div>
+            
         )
     }
 
