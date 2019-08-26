@@ -6,8 +6,10 @@ import App from "./pages/App";
 import Login from "./pages/login.js";
 import SignUp from "./pages/signup";
 import Interest from "./pages/interests";
+import Trip from "./pages/trip";
 
 //ReactDOM.render(<Login />, document.getElementById("root"));
 //ReactDOM.render(<SignUp />, document.getElementById("root"));
 //ReactDOM.render(<App />, document.getElementById("root"));
-ReactDOM.render(<Interest />, document.getElementById("root"));
+//ReactDOM.render(<Interest />, document.getElementById("root"));
+ReactDOM.render(<Trip/>, document.getElementById("root"));
