@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import Error from "../components/errors.jsx";
 import "../styles/formStyle.scss";
 import "../styles/styles.scss";
-import NavBar from "../components/navbar.jsx";
 
 //Field Yup validation definitions
 const validationSchema = Yup.object().shape({
@@ -38,7 +37,6 @@ export default function SignUp() {
 
   return (
     <React.Fragment>
-      <NavBar />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
