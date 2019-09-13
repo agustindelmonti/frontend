@@ -16,7 +16,7 @@ const Body = styled.div`
   background-color: white;
   background-size: cover;
   font-family: "Proxima Nova", sans-serif;
-  color: white;
+  color: black;
   height: -webkit-fill-available;
   height: 100%;
   position: absolute;
@@ -24,7 +24,7 @@ const Body = styled.div`
 `;
 
 const StyledMain = styled.main`
-  margin: 0 2%;
+  margin: 0 40%;
 `;
 
 export default Layout;
