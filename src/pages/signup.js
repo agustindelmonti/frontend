@@ -1,11 +1,15 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Error from "../components/errors.jsx";
-import "../styles/formStyle.scss";
-import "../styles/styles.scss";
+import styled from "styled-components";
 
-//Field Yup validation definitions
+import Button from "../components/button";
+import Layout from "../components/layout";
+import InputWrapper from "../components/InputWrapper";
+
+//import "../styles/styles.scss";
+
+//Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Direccion de email invalida.")
@@ -27,22 +31,24 @@ const validationSchema = Yup.object().shape({
     .required("Campo obligatorio")
 });
 
-export default function SignUp() {
-  const initialValues = {
-    email: "",
-    password: "",
-    password_confirm: "",
-    username: ""
-  };
+const initialValues = {
+  email: "",
+  password: "",
+  password_confirm: "",
+  username: ""
+};
 
+//Sign Up Form
+export default function SignUp() {
   return (
-    <React.Fragment>
+    <Layout>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
 
+          //Aca se programa la logica de fetch
           alert(JSON.stringify(values, null, 2));
         }}
       >
@@ -55,103 +61,104 @@ export default function SignUp() {
           handleSubmit,
           isSubmitting
         }) => (
-          <form onSubmit={handleSubmit}>
-            <div className="form-container">
-              <h4>Regístrate con tu dirección de email</h4>
-              <div
-                className={
-                  "input-group" +
-                  (touched.email && errors.email ? " error" : " ")
-                }
-              >
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                />
-                <Error touched={touched.email} message={errors.email} />
-              </div>
+          <StyledForm onSubmit={handleSubmit}>
+            <h4>Regístrate con tu dirección de email</h4>
 
-              <div
-                className={
-                  "input-group" +
-                  (touched.password && errors.password ? " error" : " ")
-                }
-              >
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Contraseña"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                />
-                <Error touched={touched.password} message={errors.password} />
-              </div>
+            <InputWrapper touched={touched.email} message={errors.email}>
+              <InputField
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                error={touched.email && errors.email}
+              />
+            </InputWrapper>
 
-              <div
-                className={
-                  "input-group" +
-                  (touched.password_confirm && errors.password_confirm
-                    ? " error"
-                    : " ")
-                }
-              >
-                <input
-                  type="password"
-                  name="password_confirm"
-                  id="password_confirm"
-                  placeholder="Confirmar contraseña"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password_confirm}
-                />
-                <Error
-                  touched={touched.password_confirm}
-                  message={errors.password_confirm}
-                />
-              </div>
+            <InputWrapper touched={touched.password} message={errors.password}>
+              <InputField
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                error={touched.password && errors.password}
+              />
+            </InputWrapper>
 
-              <div
-                className={
-                  "input-group" +
-                  (touched.username && errors.username ? " error" : " ")
-                }
-              >
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Usuario"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.username}
-                />
-                <Error touched={touched.username} message={errors.username} />
-              </div>
+            <InputWrapper
+              touched={touched.password_confirm}
+              message={errors.password_confirm}
+            >
+              <InputField
+                type="password"
+                name="password_confirm"
+                id="password_confirm"
+                placeholder="Confirmar contraseña"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password_confirm}
+                error={touched.password_confirm && errors.password_confirm}
+              />
+            </InputWrapper>
 
-              <div>
-                Al hacer clic en Registrarse, acepta los
-                <a href="">Términos y Condiciones de Uso </a>.
-              </div>
+            <InputWrapper touched={touched.username} message={errors.username}>
+              <InputField
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Usuario"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
+                error={touched.username && errors.username}
+              />
+            </InputWrapper>
 
-              <button type="submit" class="btn" disabled={isSubmitting}>
-                Regístrate
-              </button>
-
-              <div>
-                ¿Ya tienes una cuenta?
-                <a href="">Iniciar sesión </a>.
-              </div>
+            <div>
+              Al hacer clic en Registrarse, acepta los
+              <a href="">Términos y Condiciones de Uso </a>.
             </div>
-          </form>
+
+            <Button type="submit" disabled={isSubmitting}>
+              Regístrate
+            </Button>
+
+            <div>
+              ¿Ya tienes una cuenta?
+              <a href="">Iniciar sesión </a>.
+            </div>
+          </StyledForm>
         )}
       </Formik>
-    </React.Fragment>
+    </Layout>
   );
 }
+
+const StyledForm = styled.form`
+  display: grid;
+  grid-gap: 10px;
+
+  width: 400px;
+  margin: 10% 0%;
+  padding: 3%;
+`;
+
+const InputField = styled.input`
+  float: left;
+  font-size: 13px;
+  height: 33px;
+  margin: 0;
+  padding: 0 0 0 15px;
+  width: 100%;
+  outline: none;
+
+  /*Change bg color if there is an error */
+  background-color: ${props => (props.error ? "#fce4e4" : "#fff")};
+  /*Change border color if there is an error */
+  border: 1px solid ${props => (props.error ? "#cc0033" : "#999")};
+`;
