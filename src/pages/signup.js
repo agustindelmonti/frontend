@@ -2,10 +2,12 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "../components/button";
 import Layout from "../components/layout";
 import InputWrapper from "../components/InputWrapper";
+import Divider from "../components/divider";
 
 //import "../styles/styles.scss";
 
@@ -62,6 +64,7 @@ export default function SignUp() {
           isSubmitting
         }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Divider />
             <h4>Regístrate con tu dirección de email</h4>
 
             <InputWrapper touched={touched.email} message={errors.email}>
@@ -121,7 +124,7 @@ export default function SignUp() {
 
             <div>
               Al hacer clic en Registrarse, acepta los
-              <a href="">Términos y Condiciones de Uso </a>.
+              <Link to={"/"}>Términos y Condiciones de Uso </Link>.
             </div>
 
             <Button type="submit" disabled={isSubmitting}>
@@ -130,7 +133,7 @@ export default function SignUp() {
 
             <div>
               ¿Ya tienes una cuenta?
-              <a href="">Iniciar sesión </a>.
+              <Link to={"/login"}>Iniciar sesión </Link>.
             </div>
           </StyledForm>
         )}

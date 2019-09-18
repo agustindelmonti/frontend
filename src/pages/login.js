@@ -2,15 +2,17 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "../components/button";
 import Layout from "../components/layout";
 import InputWrapper from "../components/InputWrapper";
+import Divider from "../components/divider";
 
 //Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
   email: Yup.string().required(
-    "Ingresa tu nombre de usuario de Spotify o tu dirección de correo electrónico."
+    "Ingresa tu nombre de usuario o tu dirección de correo electrónico."
   ),
   password: Yup.string().required("Por favor introduce tu contraseña.")
 });
@@ -43,6 +45,7 @@ export default function Login() {
           isSubmitting
         }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Divider />
             <h4>Para continuar, inicia sesión.</h4>
 
             <InputWrapper touched={touched.email} message={errors.email}>
@@ -57,7 +60,6 @@ export default function Login() {
                 error={touched.email && errors.email}
               />
             </InputWrapper>
-
             <InputWrapper touched={touched.password} message={errors.password}>
               <InputField
                 type="text"
@@ -70,11 +72,24 @@ export default function Login() {
                 error={touched.password && errors.password}
               />
             </InputWrapper>
-
             <div className="input-row">
               <Button type="submit" disabled={isSubmitting}>
                 Iniciar Sesion
               </Button>
+            </div>
+
+            <Link to={"/"}>¿Has olvidado tu contraseña?</Link>
+
+            <div>
+              <Divider />
+              <h2>¿No tienes una cuenta?</h2>
+              <Link to={"/register"}>Regístrte</Link>.
+            </div>
+
+            <div>
+              <Divider />
+              Al hacer clic en Registrarse, acepta los
+              <Link to={"/"}> Términos y Condiciones de Uso </Link>.
             </div>
           </StyledForm>
         )}
