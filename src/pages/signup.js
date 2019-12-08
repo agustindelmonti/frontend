@@ -1,11 +1,17 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Error from "../components/errors.jsx";
-import "./styles.scss";
-import "./formStyle.scss";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-//Field Yup validation definitions
+import Button from "../components/button";
+import Layout from "../components/layout";
+import InputWrapper from "../components/InputWrapper";
+import Divider from "../components/divider";
+
+//import "../styles/styles.scss";
+
+//Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Direccion de email invalida.")
@@ -27,42 +33,42 @@ const validationSchema = Yup.object().shape({
     .required("Campo obligatorio")
 });
 
+const initialValues = {
+  email: "",
+  password: "",
+  password_confirm: "",
+  username: ""
+};
+
+//Sign Up Form
 export default function SignUp() {
-  const initialValues = {
-    email: "",
-    password: "",
-    password_confirm: "",
-    username: ""
-  };
-
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
+    <Layout>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(true);
 
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <div className="form-container">
+          //Aca se programa la logica de fetch
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting
+        }) => (
+          <StyledForm onSubmit={handleSubmit}>
+            <Divider />
             <h4>Regístrate con tu dirección de email</h4>
-            <div
-              className={
-                "input-group" + (touched.email && errors.email ? " error" : " ")
-              }
-            >
-              <input
+
+            <InputWrapper touched={touched.email} message={errors.email}>
+              <InputField
                 type="text"
                 name="email"
                 id="email"
@@ -70,17 +76,12 @@ export default function SignUp() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
+                error={touched.email && errors.email}
               />
-              <Error touched={touched.email} message={errors.email} />
-            </div>
+            </InputWrapper>
 
-            <div
-              className={
-                "input-group" +
-                (touched.password && errors.password ? " error" : " ")
-              }
-            >
-              <input
+            <InputWrapper touched={touched.password} message={errors.password}>
+              <InputField
                 type="password"
                 name="password"
                 id="password"
@@ -88,19 +89,15 @@ export default function SignUp() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
+                error={touched.password && errors.password}
               />
-              <Error touched={touched.password} message={errors.password} />
-            </div>
+            </InputWrapper>
 
-            <div
-              className={
-                "input-group" +
-                (touched.password_confirm && errors.password_confirm
-                  ? " error"
-                  : " ")
-              }
+            <InputWrapper
+              touched={touched.password_confirm}
+              message={errors.password_confirm}
             >
-              <input
+              <InputField
                 type="password"
                 name="password_confirm"
                 id="password_confirm"
@@ -108,20 +105,12 @@ export default function SignUp() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password_confirm}
+                error={touched.password_confirm && errors.password_confirm}
               />
-              <Error
-                touched={touched.password_confirm}
-                message={errors.password_confirm}
-              />
-            </div>
+            </InputWrapper>
 
-            <div
-              className={
-                "input-group" +
-                (touched.username && errors.username ? " error" : " ")
-              }
-            >
-              <input
+            <InputWrapper touched={touched.username} message={errors.username}>
+              <InputField
                 type="text"
                 name="username"
                 id="username"
@@ -129,26 +118,50 @@ export default function SignUp() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.username}
+                error={touched.username && errors.username}
               />
-              <Error touched={touched.username} message={errors.username} />
-            </div>
+            </InputWrapper>
 
             <div>
               Al hacer clic en Registrarse, acepta los
-              <a href="">Términos y Condiciones de Uso </a>.
+              <Link to={"/"}>Términos y Condiciones de Uso </Link>.
             </div>
 
-            <button type="submit" class="btn" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
               Regístrate
-            </button>
+            </Button>
 
             <div>
               ¿Ya tienes una cuenta?
-              <a href="">Iniciar sesión </a>.
+              <Link to={"/login"}>Iniciar sesión </Link>.
             </div>
-          </div>
-        </form>
-      )}
-    </Formik>
+          </StyledForm>
+        )}
+      </Formik>
+    </Layout>
   );
 }
+
+const StyledForm = styled.form`
+  display: grid;
+  grid-gap: 10px;
+
+  width: 400px;
+  margin: 10% 0%;
+  padding: 3%;
+`;
+
+const InputField = styled.input`
+  float: left;
+  font-size: 13px;
+  height: 33px;
+  margin: 0;
+  padding: 0 0 0 15px;
+  width: 100%;
+  outline: none;
+
+  /*Change bg color if there is an error */
+  background-color: ${props => (props.error ? "#fce4e4" : "#fff")};
+  /*Change border color if there is an error */
+  border: 1px solid ${props => (props.error ? "#cc0033" : "#999")};
+`;
