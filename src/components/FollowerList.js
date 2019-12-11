@@ -4,9 +4,8 @@ import UserCard from "./UserCard";
 //Este componente usa scrolling infinito
 const postsPerPage = 20;
 const API_URL = "http://localhost:8080";
-const username = "jowas2";
 
-function FollowList() {
+function FollowList({ match }) {
   const [state, dispatch] = React.useReducer(reducer, {
     loading: false,
     more: true,
@@ -14,13 +13,12 @@ function FollowList() {
     after: 0,
     error: false
   });
-
   const { loading, data, after, more, error } = state;
 
   const fetchMore = () => {
     dispatch({ type: "start" });
     //Todo: sacar username de la URL del cliente
-    const endpoint = `${API_URL}/${username}/followed?page=${after}&size=${postsPerPage}`;
+    const endpoint = `${API_URL}${match.url}?page=${after}&size=${postsPerPage}`;
 
     fetch(endpoint)
       .then(response => response.json())
@@ -37,23 +35,24 @@ function FollowList() {
       });
   };
 
+  //Fetches data when the component is first mounted
+  React.useEffect(fetchMore, []);
+
   return (
     <div>
-      <div>
-        {data.map(user => (
-          <UserCard key={user.id} data={user} />
-        ))}
+      {data.map(user => (
+        <UserCard key={user.id} data={user} />
+      ))}
 
-        {loading && <div>Loading..</div>}
+      {loading && <div>Loading..</div>}
 
-        {!loading && more && (
-          <div>
-            <button onClick={fetchMore}>Load More</button>
-          </div>
-        )}
+      {!loading && more && (
+        <div>
+          <button onClick={fetchMore}>Load More</button>
+        </div>
+      )}
 
-        {error && <div>Server Error</div>}
-      </div>
+      {error && <div>Server Error</div>}
     </div>
   );
 }
