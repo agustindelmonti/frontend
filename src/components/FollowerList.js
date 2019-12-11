@@ -6,15 +6,16 @@ const postsPerPage = 20;
 const API_URL = "http://localhost:8080";
 const username = "jowas2";
 
-function App() {
+function FollowList() {
   const [state, dispatch] = React.useReducer(reducer, {
     loading: false,
     more: true,
     data: [],
-    after: 0
+    after: 0,
+    error: false
   });
 
-  const { loading, data, after, more } = state;
+  const { loading, data, after, more, error } = state;
 
   const fetchMore = () => {
     dispatch({ type: "start" });
@@ -32,7 +33,7 @@ function App() {
       })
       .catch(error => {
         console.error("Error:", error);
-        // do some clean-up job
+        dispatch({ type: "error" });
       });
   };
 
@@ -50,11 +51,13 @@ function App() {
             <button onClick={fetchMore}>Load More</button>
           </div>
         )}
+
+        {error && <div>Server Error</div>}
       </div>
     </div>
   );
 }
-export default App;
+export default FollowList;
 
 /*useReducer hook
 Encapsula los estados internos posibles del componente 
@@ -64,7 +67,7 @@ de forma mas ordenada
 const reducer = (state, action) => {
   switch (action.type) {
     case "start":
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case "loaded":
       return {
         ...state,
@@ -73,6 +76,8 @@ const reducer = (state, action) => {
         more: action.more,
         after: state.after + 1
       };
+    case "error":
+      return { ...state, loading: false, error: true };
     default:
       throw new Error();
   }
