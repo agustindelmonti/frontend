@@ -22,7 +22,6 @@ function SearchBox() {
       // click was inside form, do nothing
       return;
     }
-    console.log("Click outside the form, close it");
     setBarOpened(false);
   };
 
@@ -36,7 +35,7 @@ function SearchBox() {
   };
 
   return (
-    <React.Fragment>
+    <Wrapper>
       <Form
         barOpened={barOpened}
         onClick={() => {
@@ -59,16 +58,19 @@ function SearchBox() {
           icon
         </Button>
       </Form>
-    </React.Fragment>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin: 5px 8px;
+`;
 
 const Form = styled.form`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /*Change color depending if it is opened or not */
   background-color: ${props => (props.barOpened ? "#fff" : "#ffffff99")};
   /* Change width of the form depending if the bar is opened or not */
