@@ -4,27 +4,26 @@ import { Link } from "react-router-dom";
 
 import SearchBox from "./searchBox";
 import Logo from "./Logo";
+import Dropdown from "./DropdownMenu";
 
 const Navbar = () => (
   <Header>
     <Wrapper>
       <Navigation>
         <Logo />
-        <SearchBox />
-        <Link to={"/home"} className="link">
-          Home
-        </Link>
 
-        <Link to={"/"} className="link">
-          Home
-        </Link>
+        <StyledLink to={"/home"}>Descubrir</StyledLink>
 
-        <Link to={"/"} className="link">
-          Home
-        </Link>
+        <StyledLink to={"/"}>Explorar</StyledLink>
+
+        <StyledLink to={"/"}>Viajes</StyledLink>
       </Navigation>
 
-      <Actions>AA</Actions>
+      <SearchBox />
+
+      <Actions>
+        <Dropdown />
+      </Actions>
     </Wrapper>
   </Header>
 );
@@ -59,6 +58,7 @@ const Wrapper = styled.div`
   align-items: center;
   display: -ms-inline-flexbox;
   display: inline-flex;
+
   background-color: var(--newCommunityTheme-body);
   border-bottom: 1px solid var(--newCommunityTheme-line);
   box-sizing: border-box;
@@ -83,10 +83,6 @@ const Navigation = styled.nav`
     max-width: 1200px;
   }
   */
-  .link {
-    color: black;
-    text-decoration: none;
-  }
 `;
 
 const Actions = styled.div`
@@ -98,4 +94,10 @@ const Actions = styled.div`
   flex-direction: row;
   -ms-flex-positive: 0;
   flex-grow: 0;
+`;
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  padding: 5px;
 `;
