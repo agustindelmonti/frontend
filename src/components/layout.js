@@ -2,15 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
-import Header from "../components/header";
+import Navbar from "./Navbar";
 import Footer from "./footer";
 
 const Layout = ({ children }) => (
   <Body>
     <BrowserRouter>
-      <Header />
+      <Navbar />
       <StyledMain>{children}</StyledMain>
-      <Footer />
     </BrowserRouter>
   </Body>
 );
@@ -21,9 +20,7 @@ const Body = styled.div`
   font-family: "Proxima Nova", sans-serif;
   color: black;
   height: -webkit-fill-available;
-  height: 100%;
-  position: absolute;
-  width: 100%;
+  margin-top: 48px;
 `;
 
 const StyledMain = styled.main`
