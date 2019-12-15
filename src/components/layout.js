@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import UserProvider from "./UserProvider";
 
 import Navbar from "./Navbar";
 import Footer from "./footer";
@@ -8,8 +9,10 @@ import Footer from "./footer";
 const Layout = ({ children }) => (
   <Body>
     <BrowserRouter>
-      <Navbar />
-      <StyledMain>{children}</StyledMain>
+      <UserProvider>
+        <Navbar />
+        <StyledMain>{children}</StyledMain>
+      </UserProvider>
     </BrowserRouter>
   </Body>
 );

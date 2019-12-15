@@ -5,29 +5,40 @@ import { Link } from "react-router-dom";
 import SearchBox from "./searchBox";
 import Logo from "./Logo";
 import Dropdown from "./DropdownMenu";
+import withUser from "./withUser";
 
-const Navbar = () => (
-  <Header>
-    <Wrapper>
-      <Navigation>
-        <Logo />
+const Navbar = props => {
+  //Authenticated prop provided by context
+  const { authenticated } = props;
 
-        <StyledLink to={"/home"}>Descubrir</StyledLink>
+  return (
+    <Header>
+      <Wrapper>
+        <Navigation>
+          <Logo />
 
-        <StyledLink to={"/"}>Explorar</StyledLink>
+          <StyledLink to={"/home"}>Descubrir</StyledLink>
 
-        <StyledLink to={"/"}>Viajes</StyledLink>
-      </Navigation>
+          <StyledLink to={"/"}>Explorar</StyledLink>
 
-      <SearchBox />
+          <StyledLink to={"/"}>Viajes</StyledLink>
+        </Navigation>
 
-      <Actions>
-        <Dropdown />
-      </Actions>
-    </Wrapper>
-  </Header>
-);
-export default Navbar;
+        <SearchBox />
+
+        <Actions>
+          {!authenticated && (
+            <Link to={"/login"}>
+              <button>Log In</button>
+            </Link>
+          )}
+          {authenticated && <Dropdown />}
+        </Actions>
+      </Wrapper>
+    </Header>
+  );
+};
+export default withUser(Navbar);
 
 const Header = styled.div`
   -ms-flex-align: center;
