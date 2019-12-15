@@ -9,20 +9,39 @@ import Layout from "../components/layout";
 import InputWrapper from "../components/InputWrapper";
 import Divider from "../components/divider";
 
+//import "../styles/styles.scss";
+
 //Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required(
-    "Ingresa tu nombre de usuario o tu dirección de correo electrónico."
-  ),
-  password: Yup.string().required("Por favor introduce tu contraseña.")
+  email: Yup.string()
+    .email("Direccion de email invalida.")
+    .max(255, "Debe ser menor a 255 caracteres.")
+    .required("Campo obligatorio"),
+  password: Yup.string()
+    .max(32, "La contraseña debe tener menos de 32 caracteres")
+    .required("Campo obligatorio")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%?\^&\*])(?=.{8,})/,
+      "Debe tener al menos 8 caracteres, 1 letra mayuscula, 1 letra minuscula, 1 numero y un caracter especial."
+    ),
+  password_confirm: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden.")
+    .required("Campo obligatorio"),
+  username: Yup.string()
+    .min(5, "Usuario debe tener al menos 5 caracteres")
+    .max(30, "Usuario demasiado grande.")
+    .required("Campo obligatorio")
 });
 
 const initialValues = {
   email: "",
-  password: ""
+  password: "",
+  password_confirm: "",
+  username: ""
 };
 
-export default function Login() {
+//Sign Up Form
+export default function Registration() {
   return (
     <Formik
       initialValues={initialValues}
@@ -45,23 +64,24 @@ export default function Login() {
       }) => (
         <StyledForm onSubmit={handleSubmit}>
           <Divider />
-          <h4>Para continuar, inicia sesión.</h4>
+          <h4>Regístrate con tu dirección de email</h4>
 
           <InputWrapper touched={touched.email} message={errors.email}>
             <InputField
               type="text"
               name="email"
               id="email"
-              placeholder="Email o nombre de usuario"
+              placeholder="Email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
               error={touched.email && errors.email}
             />
           </InputWrapper>
+
           <InputWrapper touched={touched.password} message={errors.password}>
             <InputField
-              type="text"
+              type="password"
               name="password"
               id="password"
               placeholder="Contraseña"
@@ -71,24 +91,48 @@ export default function Login() {
               error={touched.password && errors.password}
             />
           </InputWrapper>
-          <div className="input-row">
-            <Button type="submit" disabled={isSubmitting}>
-              Iniciar Sesion
-            </Button>
-          </div>
 
-          <Link to={"/"}>¿Has olvidado tu contraseña?</Link>
+          <InputWrapper
+            touched={touched.password_confirm}
+            message={errors.password_confirm}
+          >
+            <InputField
+              type="password"
+              name="password_confirm"
+              id="password_confirm"
+              placeholder="Confirmar contraseña"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password_confirm}
+              error={touched.password_confirm && errors.password_confirm}
+            />
+          </InputWrapper>
+
+          <InputWrapper touched={touched.username} message={errors.username}>
+            <InputField
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Usuario"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.username}
+              error={touched.username && errors.username}
+            />
+          </InputWrapper>
 
           <div>
-            <Divider />
-            <h2>¿No tienes una cuenta?</h2>
-            <Link to={"/register"}>Regístrte</Link>.
-          </div>
-
-          <div>
-            <Divider />
             Al hacer clic en Registrarse, acepta los
-            <Link to={"/"}> Términos y Condiciones de Uso </Link>.
+            <Link to={"/"}>Términos y Condiciones de Uso </Link>.
+          </div>
+
+          <Button type="submit" disabled={isSubmitting}>
+            Regístrate
+          </Button>
+
+          <div>
+            ¿Ya tienes una cuenta?
+            <Link to={"/login"}>Iniciar sesión </Link>.
           </div>
         </StyledForm>
       )}
