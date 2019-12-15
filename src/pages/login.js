@@ -8,30 +8,40 @@ import Button from "../components/button";
 import Layout from "../components/layout";
 import InputWrapper from "../components/InputWrapper";
 import Divider from "../components/divider";
+import withUser from "../components/withUser";
+
+const API_URL = "http://localhost:8080";
 
 //Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required(
+  username: Yup.string().required(
     "Ingresa tu nombre de usuario o tu dirección de correo electrónico."
   ),
   password: Yup.string().required("Por favor introduce tu contraseña.")
 });
 
 const initialValues = {
-  email: "",
+  username: "",
   password: ""
 };
 
-export default function Login() {
+export default function Login(props) {
+  const { actions } = props;
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
-
-        //Aca se programa la logica de fetch
-        alert(JSON.stringify(values, null, 2));
+        fetch(`${API_URL}/auth`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values)
+        })
+          .then(actions.onLogin)
+          .catch(error => {
+            console.log(error);
+          });
       }}
     >
       {({
@@ -47,16 +57,16 @@ export default function Login() {
           <Divider />
           <h4>Para continuar, inicia sesión.</h4>
 
-          <InputWrapper touched={touched.email} message={errors.email}>
+          <InputWrapper touched={touched.username} message={errors.username}>
             <InputField
               type="text"
-              name="email"
-              id="email"
+              name="username"
+              id="username"
               placeholder="Email o nombre de usuario"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.email}
-              error={touched.email && errors.email}
+              value={values.username}
+              error={touched.username && errors.username}
             />
           </InputWrapper>
           <InputWrapper touched={touched.password} message={errors.password}>
@@ -94,6 +104,8 @@ export default function Login() {
       )}
     </Formik>
   );
+
+  const login = () => {};
 }
 
 const StyledForm = styled.form`
