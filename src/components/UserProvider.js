@@ -13,7 +13,11 @@ const UserProvider = ({ children }) => {
     setAuthenticated(true);
   };
 
-  const actions = { onLogin: handleLogin };
+  const handleLogout = () => {
+    setAuthenticated(false);
+  };
+
+  const actions = { onLogin: handleLogin, onLogout: handleLogout };
 
   return (
     <UserContext.Provider value={{ authenticated, actions: actions }}>
