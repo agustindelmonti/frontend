@@ -27,7 +27,7 @@ const initialValues = {
 
 const Login = props => {
   const { actions } = props;
-  console.log(props);
+
   return (
     <Formik
       initialValues={initialValues}
