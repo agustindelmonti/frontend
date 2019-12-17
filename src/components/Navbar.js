@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -6,10 +6,11 @@ import SearchBox from "./searchBox";
 import Logo from "./Logo";
 import Dropdown from "./DropdownMenu";
 import withUser from "./withUser";
+import UserProvider from "./UserProvider";
 
-const Navbar = props => {
+const Navbar = () => {
   //Authenticated prop provided by context
-  const { authenticated } = props;
+  const authenticated = useContext(UserProvider);
 
   return (
     <Header>
@@ -38,7 +39,9 @@ const Navbar = props => {
     </Header>
   );
 };
-export default withUser(Navbar);
+
+//export default withUser(Navbar);
+export default Navbar;
 
 const Header = styled.div`
   -ms-flex-align: center;

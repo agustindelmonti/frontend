@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import Button from "../components/button";
 import Layout from "../components/layout";
 import InputWrapper from "../components/InputWrapper";
 import Divider from "../components/divider";
 import withUser from "../components/withUser";
+import {UserContext} from "../components/UserProvider";
 
 const API_URL = "http://localhost:8080";
 
@@ -25,8 +26,13 @@ const initialValues = {
   password: ""
 };
 
-const Login = props => {
-  const { actions } = props;
+const Login = () => {
+  const { authenticated , actions } = useContext(UserContext);
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+
+  if (authenticated){
+      return <Redirect to="/trip"/>
+  }
 
   return (
     <Formik
@@ -39,7 +45,14 @@ const Login = props => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values)
         })
-          .then(actions.onLogin)
+          .then(response => {
+              if(response.status === 200){
+                  actions.onLogin();
+              }
+              else{
+                  setInvalidCredentials(true);
+              }
+          })
           .catch(error => {
             console.log(error);
           });
@@ -72,7 +85,7 @@ const Login = props => {
           </InputWrapper>
           <InputWrapper touched={touched.password} message={errors.password}>
             <InputField
-              type="text"
+              type="password"
               name="password"
               id="password"
               placeholder="Contraseña"
@@ -87,6 +100,8 @@ const Login = props => {
               Iniciar Sesion
             </Button>
           </div>
+
+          {invalidCredentials && <p>Usuario y/o contraseña equivocado</p>}
 
           <Link to={"/"}>¿Has olvidado tu contraseña?</Link>
 
@@ -107,6 +122,7 @@ const Login = props => {
   );
 };
 export default withUser(Login);
+
 
 const StyledForm = styled.form`
   display: grid;

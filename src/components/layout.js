@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter } from "react-router-dom";
-import UserProvider from "./UserProvider";
 
+import UserProvider from "./UserProvider";
 import Navbar from "./Navbar";
 import Footer from "./footer";
+import Router from "../Router";
 
-const Layout = ({ children }) => (
-  <Body>
-    <BrowserRouter>
-      <UserProvider>
-        <Navbar />
-        <StyledMain>{children}</StyledMain>
-      </UserProvider>
-    </BrowserRouter>
-  </Body>
+const Layout = () => (
+    <Body>
+        <UserProvider>
+            <Router>
+                <Navbar />
+                <StyledMain />
+            </Router>
+        </UserProvider>
+    </Body>
 );
 
 const Body = styled.div`

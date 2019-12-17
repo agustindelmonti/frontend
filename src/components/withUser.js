@@ -10,4 +10,5 @@ const withUser = ComposedComponent => props => (
   </UserContext.Consumer>
 );
 
+
 export default withUser;

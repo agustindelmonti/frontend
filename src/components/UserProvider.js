@@ -7,10 +7,15 @@ This context provider must wrap the entire app
 export const UserContext = React.createContext({});
 
 const UserProvider = ({ children }) => {
-  const [authenticated, setAuthenticated] = React.useState(false);
+  let [authenticated, setAuthenticated] = React.useState(false);
+
+  if(localStorage.getItem("authenticated") === "true"){
+    authenticated = true;
+  }
 
   const handleLogin = () => {
     setAuthenticated(true);
+    localStorage.setItem("authenticated", JSON.stringify(true));
   };
 
   const handleLogout = () => {
