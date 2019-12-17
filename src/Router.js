@@ -2,15 +2,14 @@ import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Registration from "./pages/Register.js";
-
+import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
 
 import PrivateRouter from "./components/PrivateRouter";
-import Login from "./pages/Login";
 import { UserContext } from "./components/UserProvider";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
-import Home from "./pages/Home";
 
 const Router = ({ children }) => {
   const { authenticated } = useContext(UserContext);
@@ -20,17 +19,12 @@ const Router = ({ children }) => {
       <Navbar />
       <StyledMain>
         <Switch>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Registration />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Registration} />
 
           <PrivateRouter />
+          <Route exact path="/:username" component={Profile} />
         </Switch>
       </StyledMain>
     </BrowserRouter>

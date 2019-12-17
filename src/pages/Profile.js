@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useRouteMatch,
+  BrowserRouter,
+  Route
+} from "react-router-dom";
 
 import SEO from "../components/seo";
 import FollowList from "../components/FollowerList";
@@ -25,15 +31,16 @@ const Profile = () => {
       });
   }
 
-  if (!userData.name) {
-    return <h1>{userData.message}</h1>;
-  }
-
   return (
     <React.Fragment>
-      <h1> hola {userData.name} </h1>
-      <Link to={`${url}/followed`}>Seguidos</Link>
-      <Link to={`${url}/followers`}>Seguidores</Link>
+      <BrowserRouter>
+        <h1> hola {userData.name} </h1>
+        <Link to={`${url}/followed`}>Seguidos</Link>
+        <Link to={`${url}/followers`}>Seguidores</Link>
+
+        <Route exact path="/:username/followed" component={FollowList} />
+        <Route exact path="/:username/followers" component={FollowList} />
+      </BrowserRouter>
     </React.Fragment>
   );
 };
