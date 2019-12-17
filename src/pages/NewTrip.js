@@ -24,14 +24,17 @@ const initialValues = {
 const NewTrip = () => {
   const submitForm = (values, { setSubmitting }) => {
     fetch(`${API_URL}/api/v1/trips`, {
+      credentials: "include",
       method: "POST",
-      body: JSON.stringify(values)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(values),
+      credentials: "include"
     })
       .then(res => res.json())
       .catch(error => console.error("Error:", error))
-      .then(response => {
-        setSubmitting(false);
-      });
+      .finally(setSubmitting(false));
   };
 
   return (
