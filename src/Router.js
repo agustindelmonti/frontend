@@ -24,6 +24,7 @@ const Router = ({children}) => {
                     <Registration/>
                 </Route>
 
+
                 <PrivateRouter/>
             </Switch>
         </BrowserRouter>

@@ -9,8 +9,8 @@ export const UserContext = React.createContext({});
 const UserProvider = ({ children }) => {
   let [authenticated, setAuthenticated] = React.useState(false);
 
-  if(localStorage.getItem("authenticated") === "true"){
-    authenticated = true;
+  if(localStorage.getItem("authenticated") === "true" && !authenticated){
+    setAuthenticated(true);
   }
 
   const handleLogin = () => {
@@ -19,6 +19,7 @@ const UserProvider = ({ children }) => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("authenticated");
     setAuthenticated(false);
   };
 

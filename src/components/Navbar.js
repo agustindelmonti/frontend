@@ -10,8 +10,7 @@ import UserProvider, {UserContext} from "./UserProvider";
 
 const Navbar = () => {
   //Authenticated prop provided by context
-  const {authenticated} = useContext(UserContext);
-
+  const {authenticated, actions} = useContext(UserContext);
 
   return (
     <Header>
@@ -33,10 +32,16 @@ const Navbar = () => {
             <Link to={"/login"}>
               <button>Log In</button>
             </Link>
-          )}
-          {authenticated &&
-            <Dropdown />}
 
+          )}
+          {authenticated && (
+            <React.Fragment>
+              <Dropdown />
+              <Link to={"/login"} onClick={() => actions.onLogout()}>
+                <button >Log Out</button>
+              </Link>
+            </React.Fragment>
+          )}
         </Actions>
       </Wrapper>
     </Header>

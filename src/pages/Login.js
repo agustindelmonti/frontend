@@ -31,7 +31,7 @@ const Login = () => {
   const [invalidCredentials, setInvalidCredentials] = useState(false);
 
   if (authenticated){
-      return <Redirect to="/trip"/>
+      return <Redirect to="/"/>
   }
 
   return (
