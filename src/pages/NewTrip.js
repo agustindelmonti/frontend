@@ -9,7 +9,7 @@ const validationSchema = Yup.object().shape({
     .max(20, "Debe ser menor a 20 caracteres.")
     .required("Campo obligatorio"),
   description: Yup.string()
-    .max(500, "La contraseña debe tener menos de 32 caracteres")
+    .max(500, "La descripción debe tener menos de 32 caracteres")
     .required("Campo obligatorio")
 });
 
@@ -18,19 +18,21 @@ const initialValues = {
   description: "",
   departureDate: "",
   endDate: "",
-  accessibility: true
+  accessibility: false
 };
 
 const NewTrip = () => {
   const submitForm = (values, { setSubmitting }) => {
-    fetch(`${API_URL}/api/v1/trips`, {
+    console.log(values.accessibility);
+    values.accessibility ? values.accessibility = 0 : values.accessibility = 1;
+
+    fetch(`${API_URL}/trips`, {
       credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(values),
-      credentials: "include"
     })
       .then(res => res.json())
       .catch(error => console.error("Error:", error))
@@ -61,7 +63,7 @@ const NewTrip = () => {
           <Field type="date" name="endDate" />
           <ErrorMessage name="endDate" component="div" />
 
-          <h5>Acceso</h5>
+          <h5>Acceso Público?</h5>
           <Field type="checkbox" name="accessibility" />
           <ErrorMessage name="accessibility" component="div" />
 

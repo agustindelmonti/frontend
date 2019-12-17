@@ -42,12 +42,13 @@ const Login = () => {
         setSubmitting(true);
         fetch(`${API_URL}/auth`, {
           method: "POST",
+          credentials: 'include',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values)
         })
           .then(response => {
               if(response.status === 200){
-                  actions.onLogin();
+                  actions.onLogin(response);
               }
               else{
                   setInvalidCredentials(true);
