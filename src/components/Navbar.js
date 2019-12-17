@@ -22,7 +22,7 @@ const Navbar = () => {
 
           <StyledLink to={"/"}>Explorar</StyledLink>
 
-          <StyledLink to={"/"}>Viajes</StyledLink>
+          <StyledLink to={"/trip"}>Viajes</StyledLink>
         </Navigation>
 
         <SearchBox />
@@ -37,7 +37,7 @@ const Navbar = () => {
           {authenticated && (
             <React.Fragment>
               <Dropdown />
-              <Link to={"/login"} onClick={() => actions.onLogout()}>
+              <Link to={"/"} onClick={() => actions.onLogout()}>
                 <button >Log Out</button>
               </Link>
             </React.Fragment>

@@ -10,10 +10,10 @@ import Login from "./pages/Login";
 import {UserContext} from "./components/UserProvider";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
+import Home from "./pages/Home";
 
 const Router = ({children}) => {
     const { authenticated } = useContext(UserContext);
-    console.log(authenticated);
 
     return(
         <BrowserRouter>
@@ -26,7 +26,9 @@ const Router = ({children}) => {
                     <Route exact path="/register">
                         <Registration/>
                     </Route>
-
+                    <Route exact path="/">
+                        <Home/>
+                    </Route>
 
                     <PrivateRouter/>
                 </Switch>
