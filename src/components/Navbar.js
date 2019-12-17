@@ -10,7 +10,8 @@ import UserProvider, {UserContext} from "./UserProvider";
 
 const Navbar = () => {
   //Authenticated prop provided by context
-  const authenticated = useContext(UserContext);
+  const {authenticated} = useContext(UserContext);
+
 
   return (
     <Header>
@@ -33,7 +34,9 @@ const Navbar = () => {
               <button>Log In</button>
             </Link>
           )}
-          {authenticated && <Dropdown />}
+          {authenticated &&
+            <Dropdown />}
+
         </Actions>
       </Wrapper>
     </Header>
