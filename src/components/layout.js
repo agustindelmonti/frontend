@@ -7,11 +7,11 @@ import Footer from "./footer";
 import Router from "../Router";
 
 const Layout = () => (
-    <Body>
-        <UserProvider>
-            <Router/>
-        </UserProvider>
-    </Body>
+  <Body>
+    <UserProvider>
+      <Router />
+    </UserProvider>
+  </Body>
 );
 
 const Body = styled.div`
@@ -22,7 +22,5 @@ const Body = styled.div`
   height: -webkit-fill-available;
   margin-top: 48px;
 `;
-
-
 
 export default Layout;

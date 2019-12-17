@@ -7,8 +7,8 @@ import Layout from "../components/layout";
 const LandingPage = () => {
   return (
     <React.Fragment>
-        <SEO title="Home" />
-        <Layout/>
+      <SEO title="Home" />
+      <Layout />
     </React.Fragment>
   );
 };

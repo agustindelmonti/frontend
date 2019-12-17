@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -6,11 +6,11 @@ import SearchBox from "./searchBox";
 import Logo from "./Logo";
 import Dropdown from "./DropdownMenu";
 import withUser from "./withUser";
-import UserProvider, {UserContext} from "./UserProvider";
+import UserProvider, { UserContext } from "./UserProvider";
 
 const Navbar = () => {
   //Authenticated prop provided by context
-  const {authenticated, actions} = useContext(UserContext);
+  const { authenticated, actions } = useContext(UserContext);
 
   return (
     <Header>
@@ -32,16 +32,8 @@ const Navbar = () => {
             <Link to={"/login"}>
               <button>Log In</button>
             </Link>
-
           )}
-          {authenticated && (
-            <React.Fragment>
-              <Dropdown />
-              <Link to={"/"} onClick={() => actions.onLogout()}>
-                <button >Log Out</button>
-              </Link>
-            </React.Fragment>
-          )}
+          {authenticated && <Dropdown />}
         </Actions>
       </Wrapper>
     </Header>
