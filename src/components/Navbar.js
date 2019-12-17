@@ -6,11 +6,11 @@ import SearchBox from "./searchBox";
 import Logo from "./Logo";
 import Dropdown from "./DropdownMenu";
 import withUser from "./withUser";
-import UserProvider from "./UserProvider";
+import UserProvider, {UserContext} from "./UserProvider";
 
 const Navbar = () => {
   //Authenticated prop provided by context
-  const authenticated = useContext(UserProvider);
+  const authenticated = useContext(UserContext);
 
   return (
     <Header>
