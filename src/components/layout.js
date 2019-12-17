@@ -9,10 +9,7 @@ import Router from "../Router";
 const Layout = () => (
     <Body>
         <UserProvider>
-            <Router>
-                <Navbar />
-                <StyledMain />
-            </Router>
+            <Router/>
         </UserProvider>
     </Body>
 );
@@ -26,8 +23,6 @@ const Body = styled.div`
   margin-top: 48px;
 `;
 
-const StyledMain = styled.main`
-  margin: 0 40%;
-`;
+
 
 export default Layout;

@@ -8,6 +8,8 @@ import Profile from "./pages/Profile";
 import PrivateRouter from "./components/PrivateRouter";
 import Login from "./pages/Login";
 import {UserContext} from "./components/UserProvider";
+import Navbar from "./components/Navbar";
+import styled from "styled-components";
 
 const Router = ({children}) => {
     const { authenticated } = useContext(UserContext);
@@ -15,20 +17,27 @@ const Router = ({children}) => {
 
     return(
         <BrowserRouter>
-            {children}
-            <Switch>
-                <Route exact path="/login">
-                    <Login/>
-                </Route>
-                <Route exact path="/register">
-                    <Registration/>
-                </Route>
+            <Navbar/>
+            <StyledMain>
+                <Switch>
+                    <Route exact path="/login">
+                        <Login/>
+                    </Route>
+                    <Route exact path="/register">
+                        <Registration/>
+                    </Route>
 
 
-                <PrivateRouter/>
-            </Switch>
+                    <PrivateRouter/>
+                </Switch>
+            </StyledMain>
         </BrowserRouter>
     );
 };
 
 export default Router;
+
+
+const StyledMain = styled.main`
+  margin: 0 40%;
+`;
