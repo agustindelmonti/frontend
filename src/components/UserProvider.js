@@ -15,7 +15,6 @@ const UserProvider = ({ children }) => {
 
   const handleLogin = (response) => {
     setAuthenticated(true);
-    console.log(response);
     localStorage.setItem("authenticated", JSON.stringify(true));
   };
 
