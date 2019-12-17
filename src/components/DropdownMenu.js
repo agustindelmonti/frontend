@@ -28,6 +28,7 @@ const Dropdown = props => {
             </Link>
             <h5>miguelón23</h5>
           </Account>
+          <Item to="/new">Nuevo viaje</Item>
           <Item to="/">Configuracion</Item>
 
           <button onClick={actions.onLogout}>Cerrar Sesión</button>
