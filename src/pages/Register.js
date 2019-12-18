@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
@@ -11,6 +11,9 @@ import Divider from "../components/divider";
 
 //import "../styles/styles.scss";
 
+
+const API_URL = "http://localhost:8080";
+
 //Yup validation rules of forms fields datatypes
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,12 +22,12 @@ const validationSchema = Yup.object().shape({
     .required("Campo obligatorio"),
   password: Yup.string()
     .max(32, "La contraseña debe tener menos de 32 caracteres")
-    .required("Campo obligatorio")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%?\^&\*])(?=.{8,})/,
-      "Debe tener al menos 8 caracteres, 1 letra mayuscula, 1 letra minuscula, 1 numero y un caracter especial."
-    ),
-  password_confirm: Yup.string()
+    .required("Campo obligatorio"),
+    //.matches(
+    //  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%?\^&\*])(?=.{8,})/,
+    //  "Debe tener al menos 8 caracteres, 1 letra mayuscula, 1 letra minuscula, 1 numero y un caracter especial."
+    //),
+  matchingPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden.")
     .required("Campo obligatorio"),
   username: Yup.string()
@@ -36,21 +39,34 @@ const validationSchema = Yup.object().shape({
 const initialValues = {
   email: "",
   password: "",
-  password_confirm: "",
+  matchingPassword: "",
   username: ""
 };
 
 //Sign Up Form
 export default function Registration() {
+  const [resultMessage, setResultMessage] = useState("");
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-
-        //Aca se programa la logica de fetch
-        alert(JSON.stringify(values, null, 2));
+      onSubmit={ values  => {
+        fetch(`${API_URL}/register`, {
+          method: "POST",
+          credentials: 'include',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values)
+        }).then(response => {
+          if(response.status === 201){
+              setResultMessage("Cuenta registrada, por favor revise si casilla de correo para verificar el email");
+          }
+          else if (response.status === 409){
+            return response.json().then(jsonResponse => setResultMessage(jsonResponse.message))
+          }
+        }).catch(error => {
+          console.log(error);
+        });
       }}
     >
       {({
@@ -98,8 +114,8 @@ export default function Registration() {
           >
             <InputField
               type="password"
-              name="password_confirm"
-              id="password_confirm"
+              name="matchingPassword"
+              id="matchingPassword"
               placeholder="Confirmar contraseña"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -129,6 +145,7 @@ export default function Registration() {
           <Button type="submit" disabled={isSubmitting}>
             Regístrate
           </Button>
+          <p>{resultMessage}</p>
 
           <div>
             ¿Ya tienes una cuenta?

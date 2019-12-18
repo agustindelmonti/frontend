@@ -45,18 +45,16 @@ const Login = () => {
           credentials: 'include',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values)
-        })
-          .then(response => {
+        }).then(response => {
               if(response.status === 200){
                   actions.onLogin(response);
               }
               else{
                   setInvalidCredentials(true);
               }
-          })
-          .catch(error => {
+        }).catch(error => {
             console.log(error);
-          });
+        });
       }}
     >
       {({

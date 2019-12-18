@@ -16,7 +16,7 @@ export default function PrivateRouter(props) {
     return (
       <Switch>
         <Route exact path="/trip" component={Trip} />
-        <Route exact path="/new" component={NewTrip} />
+        <Route exact path="/trip/new" component={NewTrip} />
         <Route exact path="/:username" component={Profile} />
       </Switch>
     );

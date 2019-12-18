@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -22,8 +22,9 @@ const initialValues = {
 };
 
 const NewTrip = () => {
+  const [resultMessage, setResultMessage] = useState("");
+
   const submitForm = (values, { setSubmitting }) => {
-    console.log(values.accessibility);
     values.accessibility ? values.accessibility = 0 : values.accessibility = 1;
 
     fetch(`${API_URL}/trips`, {
@@ -33,10 +34,15 @@ const NewTrip = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(values),
-    })
-      .then(res => res.json())
-      .catch(error => console.error("Error:", error))
-      .finally(setSubmitting(false));
+    }).then(response => {
+      if(response.status === 200) {
+        setResultMessage("Viaje creado exitosamente");
+      }
+      else{
+        console.log(response);
+      }
+    }).catch(error => console.error("Error:", error)
+    ).finally(setSubmitting(false));
   };
 
   return (
@@ -70,6 +76,7 @@ const NewTrip = () => {
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
+          <p>{resultMessage}</p>
         </Form>
       )}
     </Formik>
