@@ -1,33 +1,32 @@
-import React from "react";
-import NavBar from "../components/searchBox.jsx";
-import "../styles/trip.scss";
+import React, { useEffect, useState } from "react";
+
 import InterestCard from "../components/interestcard.jsx";
 
-export default class Trip extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <NavBar />
+const API_URL = "http://localhost:8080";
+
+const Trip = ({ match }) => {
+  const [trip, setTrip] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/trips/${match.params.id}`, { credentials: "include" })
+      .then(res => res.json())
+      .then(data => {
+        setTrip(data);
+        setLoading(false);
+      })
+      .catch(error => console.error("Error:", error));
+  }, []);
+
+  return (
+    <div>
+      {!loading && (
         <div>
-          <div className="lateral"></div>
-          <div className="head">
-            <input
-              type="text"
-              className="tripName"
-              placeholder="Nombre del Viaje"
-            />
-            <div className="tags">
-              <h5>Tags:</h5>
-            </div>
-            <h3 className="destinoText">Destino</h3>
-            <input
-              type="text"
-              className="destinoSearch"
-              placeholder="Buenos Aires"
-            />
-          </div>
+          <h1>{trip.title}</h1>
+          <p>{trip.description}</p>
         </div>
-      </React.Fragment>
-    );
-  }
-}
+      )}
+    </div>
+  );
+};
+export default Trip;

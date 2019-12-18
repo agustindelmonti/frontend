@@ -15,8 +15,8 @@ export default function PrivateRouter(props) {
   } else {
     return (
       <Switch>
-        <Route exact path="/trip" component={Trip} />
-        <Route exact path="/trip/new" component={NewTrip} />
+        <Route exact path="/trip/:id" component={Trip} />
+        <Route exact path="/new" component={NewTrip} />
         <Route exact path="/:username" component={Profile} />
       </Switch>
     );
