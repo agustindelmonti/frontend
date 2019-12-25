@@ -17,10 +17,12 @@ function FollowList({ match }) {
 
   const fetchMore = () => {
     dispatch({ type: "start" });
-    //Todo: sacar username de la URL del cliente
     const endpoint = `${API_URL}${match.url}?page=${after}&size=${postsPerPage}`;
 
-    fetch(endpoint)
+    fetch(endpoint, {
+      credentials: "include",
+      headers: { "Content-Type": "application/json" }
+    })
       .then(response => response.json())
       .then(response => {
         dispatch({

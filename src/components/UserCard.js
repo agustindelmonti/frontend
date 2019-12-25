@@ -4,12 +4,24 @@ import styled from "styled-components";
 import "tabler-react/dist/Tabler.css";
 import { Avatar, colors } from "tabler-react";
 
+const API_URL = "http://localhost:8080";
+
 const UserCard = props => {
   const { id, username, profilePicture } = props.data;
+  const [followed, setFollowed] = React.useState(props.data.followed);
 
-  const generateRandomColor = () => {
-    var keys = Object.keys(colors);
-    return keys[Math.floor(keys.length * Math.random())];
+  const followUser = username => {
+    fetch(`${API_URL}/user/follow/${username}`, {
+      method: "POST",
+      credentials: "include"
+    }).then(setFollowed(!followed));
+  };
+
+  const unfollowUser = username => {
+    fetch(`${API_URL}/user/follow/${username}`, {
+      method: "DELETE",
+      credentials: "include"
+    }).then(setFollowed(!followed));
   };
 
   return (
@@ -17,11 +29,16 @@ const UserCard = props => {
       {profilePicture ? (
         <Avatar src={profilePicture} />
       ) : (
-        <Avatar color={generateRandomColor()}>
-          {username.substring(0, 3)}
-        </Avatar>
+        <Avatar color={"blue"}>{username.substring(0, 3)}</Avatar>
       )}
+
       <h4>{username}</h4>
+
+      {followed ? (
+        <button onClick={() => unfollowUser(username)}>Siguiendo</button>
+      ) : (
+        <button onClick={() => followUser(username)}>Seguir</button>
+      )}
     </Card>
   );
 };
