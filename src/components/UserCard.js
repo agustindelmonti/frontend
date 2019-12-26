@@ -10,16 +10,9 @@ const UserCard = props => {
   const { id, username, profilePicture } = props.data;
   const [followed, setFollowed] = React.useState(props.data.followed);
 
-  const followUser = username => {
+  const followUser = () => {
     fetch(`${API_URL}/user/follow/${username}`, {
-      method: "POST",
-      credentials: "include"
-    }).then(setFollowed(!followed));
-  };
-
-  const unfollowUser = username => {
-    fetch(`${API_URL}/user/follow/${username}`, {
-      method: "DELETE",
+      method: "PUT",
       credentials: "include"
     }).then(setFollowed(!followed));
   };
@@ -34,11 +27,7 @@ const UserCard = props => {
 
       <h4>{username}</h4>
 
-      {followed ? (
-        <button onClick={() => unfollowUser(username)}>Siguiendo</button>
-      ) : (
-        <button onClick={() => followUser(username)}>Seguir</button>
-      )}
+      <button onClick={followUser}>{followed ? "Siguiendo" : "Seguir"}</button>
     </Card>
   );
 };
