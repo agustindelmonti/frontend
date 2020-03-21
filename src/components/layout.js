@@ -7,20 +7,9 @@ import Footer from "./footer";
 import Router from "../Router";
 
 const Layout = () => (
-  <Body>
-    <UserProvider>
+  <UserProvider>
       <Router />
-    </UserProvider>
-  </Body>
+  </UserProvider>
 );
-
-const Body = styled.div`
-  background-color: white;
-  background-size: cover;
-  font-family: "Proxima Nova", sans-serif;
-  color: black;
-  height: -webkit-fill-available;
-  margin-top: 48px;
-`;
 
 export default Layout;

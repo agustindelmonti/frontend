@@ -17,22 +17,17 @@ const Router = ({ children }) => {
   return (
     <BrowserRouter>
       <Navbar />
-      <StyledMain>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Registration} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Registration} />
 
-          <PrivateRouter />
-          <Route exact path="/:username" component={Profile} />
-        </Switch>
-      </StyledMain>
+        <PrivateRouter />
+        <Route exact path="/:username" component={Profile} />
+      </Switch>
     </BrowserRouter>
   );
 };
 
 export default Router;
 
-const StyledMain = styled.main`
-  margin: 0 40%;
-`;
