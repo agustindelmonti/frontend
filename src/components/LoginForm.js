@@ -56,6 +56,9 @@ const StyledField = styled(Field)`
     background-color: #e5e4e4;
     border: none;
     outline: none;
+    line-height: 2rem;
+    font-size: 1rem;
+    padding: 0 0.7vw;
 `;
 
 const StyledErrorMessage = styled.div`
