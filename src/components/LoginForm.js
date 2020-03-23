@@ -22,20 +22,18 @@ export default function LoginForm(){
                 <InputContainer>
                     <StyledLabel htmlFor="email">Email</StyledLabel>
                     <StyledField name="email" type="text" />
-                    <StyledErrorMessage name="email" />
+                    <ErrorMessage name="email" component={StyledErrorMessage}/>
                 </InputContainer>
                 <InputContainer>
                     <StyledLabel htmlFor="password">Password</StyledLabel>
                     <StyledField name="password" type="password" />
-                    <StyledErrorMessage name="password" />
+                    <ErrorMessage name="password" component={StyledErrorMessage}/>
                 </InputContainer>
                 <StyledButton type="submit" className="btn btn-primary">Log In</StyledButton>
             </StyledForm>
         </Formik>
     );
 } 
-
-
 
 const StyledForm = styled(Form)`
     width: 90%;
@@ -60,8 +58,11 @@ const StyledField = styled(Field)`
     outline: none;
 `;
 
-const StyledErrorMessage = styled(ErrorMessage)`
-    color: red !important;
+const StyledErrorMessage = styled.div`
+    margin-top: 1vh;
+    font-size: .9rem;
+    color: #ff0000d1;
+    font-weight: 500;
 `;
           
 const StyledButton = styled.button`
