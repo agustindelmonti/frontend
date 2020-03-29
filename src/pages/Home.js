@@ -1,19 +1,28 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useState } from "react";
+import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import RegisterBar from "../components/RegisterBar";
 
 export default function Home() {
-  
+  const [hidedLogin, setHidedLogin] = useState(false);
+
+  function hideLogin(){
+    setHidedLogin(!hidedLogin);
+  }
+
+
   return (
     <MainRow className="row no-gutters justify-content-center">
       <MainColumn className="col-4 d-flex flex-column justify-content-center align-items-center">
-        <FormContainer className="d-flex">
-          <LoginFormContainer className="d-flex flex-column align-items-left">
-            <FormTitle>Login</FormTitle>
-            <LoginForm/>
-          </LoginFormContainer>
-          <RegisterBar/>
+        <FormContainer className="d-flex align-items-center">
+          {!hidedLogin ? 
+            <LoginFormContainer className="d-flex flex-column align-items-left">
+              <FormTitle>Login</FormTitle>
+              <LoginForm/>
+            </LoginFormContainer>
+            : null
+          }
+          <RegisterBar hideLogin={hideLogin}/>
         </FormContainer>        
       </MainColumn>
     </MainRow>
@@ -32,8 +41,9 @@ const MainColumn = styled.div`
 
 const FormContainer = styled.div`
   width: 90%;
+  min-height: 54%;
   background-color: #fefefe;
-  padding-left: 3vw ;
+  padding-left: 8%;
   border-radius: 8px;
 `;
 

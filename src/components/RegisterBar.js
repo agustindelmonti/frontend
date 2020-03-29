@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 
-export default function RegisterBar(){
+export default function RegisterBar(props){
     const [hover, setHover] = useState(false);
     
     function handleMouseEnterOrLeave(){
         setHover(!hover);
     }
 
+    function handleClick(){
+      props.hideLogin();
+    }
+
 
     return(
         <VerticalDisplay className="ml-auto" onMouseEnter={handleMouseEnterOrLeave} 
-        onMouseLeave={handleMouseEnterOrLeave}>
+        onMouseLeave={handleMouseEnterOrLeave} onClick={handleClick}>
             {!hover  ? <ExpandArrow className="fas fa-angle-double-left fa-2x mx-auto"/> : null }
         </VerticalDisplay>
     );
