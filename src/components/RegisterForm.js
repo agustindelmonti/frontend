@@ -4,36 +4,49 @@ import styled from "styled-components";
 import * as Yup from 'yup';
 
 
-
-export default function LoginForm(){
-
-    return(
+export default function RegisterForm(){
+    return (
         <Formik
             initialValues={{ email: '', password: ''}}
             validationSchema={Yup.object({
+                username: Yup.string()
+                    .required('Required'),
                 email: Yup.string()
-                .required('Required'),
+                    .required('Required'),
                 password: Yup.string()
-                .required('Required'),
+                    .required('Required'),
+                matchingPassword: Yup.string()
+                    .required('Required'),
             })}
             onSubmit={values => console.log(values)}
             >
             <StyledForm>
-                <InputContainer>
+            <InputContainer>
                     <StyledLabel htmlFor="username">Username</StyledLabel>
                     <StyledField name="username" type="text" />
                     <ErrorMessage name="username" component={StyledErrorMessage}/>
+                </InputContainer>
+                <InputContainer>
+                    <StyledLabel htmlFor="email">Email</StyledLabel>
+                    <StyledField name="email" type="text" />
+                    <ErrorMessage name="email" component={StyledErrorMessage}/>
                 </InputContainer>
                 <InputContainer>
                     <StyledLabel htmlFor="password">Password</StyledLabel>
                     <StyledField name="password" type="password" />
                     <ErrorMessage name="password" component={StyledErrorMessage}/>
                 </InputContainer>
-                <StyledButton type="submit" className="btn btn-primary">Log In</StyledButton>
+                <InputContainer>
+                    <StyledLabel htmlFor="matchingPassword">Confirm Password</StyledLabel>
+                    <StyledField name="matchingPassword" type="password" />
+                    <ErrorMessage name="matchingPassword" component={StyledErrorMessage}/>
+                </InputContainer>
+                <StyledButton type="submit" className="btn btn-light">Register</StyledButton>
             </StyledForm>
         </Formik>
     );
-} 
+}
+
 
 const StyledForm = styled(Form)`
     width: 90%;
@@ -41,12 +54,12 @@ const StyledForm = styled(Form)`
 
 
 const InputContainer = styled.div`
-    margin-top: 4vh;
+    margin-top: 3vh;
 `;
 
 
 const StyledLabel = styled.label`
-    color: #686883;
+    color: #fefefe;
     display: block;
     font-size: 1rem;
 `;
@@ -55,6 +68,7 @@ const StyledField = styled(Field)`
     width: 100%;
     background-color: #e5e4e4;
     border: none;
+    border-radius: 2px;
     outline: none;
     line-height: 2rem;
     font-size: 1rem;
@@ -70,8 +84,8 @@ const StyledErrorMessage = styled.div`
           
 const StyledButton = styled.button`
     width: 100%;
+    color: #4284f4 !important;
     border: 2px;
-    margin-top: 5vh;
-    margin-bottom: 8vh;
+    margin-top: 8vh;
+    margin-bottom: 5vh;
 `;
-          

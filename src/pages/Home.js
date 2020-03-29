@@ -49,7 +49,6 @@ const FormContainer = styled.div`
 
 const LoginFormContainer = styled.div`
   width: 90%;
-  margin-bottom: 8vh;
 `;
 
 const FormTitle = styled.h1`
