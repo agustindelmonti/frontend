@@ -6,7 +6,7 @@ import RegisterBar from "../components/RegisterBar";
 export default function Home() {
   const [hidedLogin, setHidedLogin] = useState(false);
 
-  function hideLogin(){
+  function toggleHideLogin(){
     setHidedLogin(!hidedLogin);
   }
 
@@ -22,7 +22,7 @@ export default function Home() {
             </LoginFormContainer>
             : null
           }
-          <RegisterBar hideLogin={hideLogin}/>
+          <RegisterBar toggleHideLogin={toggleHideLogin}/>
         </FormContainer>        
       </MainColumn>
     </MainRow>

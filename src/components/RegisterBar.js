@@ -16,14 +16,21 @@ export default function RegisterBar(props){
         verticalDisplayRef.current.classList.toggle(hoverTransition);
     }
 
-    function handleClick(){
+    function handleVerticalDisplayClick(){
       if(!expanded){
-        props.hideLogin();
+        props.toggleHideLogin();
         setExpanded(!expanded);
         verticalDisplayRef.current.classList.toggle(expandTransition);
       }
     }
 
+    function handleCloseButtonClick(){
+      setExpanded(false);
+      setHover(false);
+      verticalDisplayRef.current.classList.toggle(hoverTransition);
+      verticalDisplayRef.current.classList.toggle(expandTransition);
+      props.toggleHideLogin();
+    }
 
     const hoverTransition = css({
       width: "10%"
@@ -35,10 +42,13 @@ export default function RegisterBar(props){
 
     return(
         <VerticalDisplay className="ml-auto" onMouseEnter={handleMouseEnterOrLeave} 
-        onMouseLeave={handleMouseEnterOrLeave} onClick={handleClick} ref={verticalDisplayRef}>
+        onMouseLeave={handleMouseEnterOrLeave} onClick={handleVerticalDisplayClick} ref={verticalDisplayRef}>
             { expanded ? 
               <RegisterFormContainer>
-                <FormTitle>Register</FormTitle>
+                <div className="d-flex justify-content-between">
+                  <FormTitle>Register</FormTitle>
+                  <CloseButton className="fas fa-times-circle fa-3x" onClick={handleCloseButtonClick}/>
+                </div>
                 <RegisterForm></RegisterForm>
               </RegisterFormContainer>
             : !expanded && !hover ? 
@@ -67,6 +77,17 @@ const ExpandArrow = styled.i`
 
 const RegisterFormContainer = styled.div`
   margin-left: 3vw;
+`;
+
+
+const CloseButton = styled.i`
+  margin-top: 5%;
+  margin-right: 5%;
+  color: white;
+
+  &:hover{
+    cursor: pointer 
+  }
 `;
 
 
