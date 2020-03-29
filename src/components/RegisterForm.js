@@ -78,7 +78,7 @@ const StyledField = styled(Field)`
 const StyledErrorMessage = styled.div`
     margin-top: 1vh;
     font-size: .9rem;
-    color: #ff0000d1;
+    color: #ffed00d1;
     font-weight: 500;
 `;
           

@@ -11,10 +11,10 @@ export default function LoginForm(){
         <Formik
             initialValues={{ email: '', password: ''}}
             validationSchema={Yup.object({
-                email: Yup.string()
-                .required('Required'),
+                username: Yup.string()
+                    .required('Required'),
                 password: Yup.string()
-                .required('Required'),
+                    .required('Required'),
             })}
             onSubmit={values => console.log(values)}
             >
