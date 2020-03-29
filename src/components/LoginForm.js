@@ -9,7 +9,7 @@ export default function LoginForm(){
 
     return(
         <Formik
-            initialValues={{ email: '', password: ''}}
+            initialValues={{ username: '', password: ''}}
             validationSchema={Yup.object({
                 username: Yup.string()
                     .required('Required'),
