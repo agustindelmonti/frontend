@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 export default function RegisterForm(){
     return (
         <Formik
-            initialValues={{ email: '', password: ''}}
+            initialValues={{ username: '', email: '', password: '', matchingPassword: ''}}
             validationSchema={Yup.object({
                 username: Yup.string()
                     .required('Required'),
