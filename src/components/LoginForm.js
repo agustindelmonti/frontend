@@ -17,6 +17,8 @@ export default function LoginForm(){
                     .required('Required'),
             })}
             onSubmit={values => console.log(values)}
+            validateOnChange={false}
+            validateOnBlur={false}
             >
             <StyledForm>
                 <InputContainer>

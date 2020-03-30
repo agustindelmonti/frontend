@@ -12,13 +12,17 @@ export default function RegisterForm(){
                 username: Yup.string()
                     .required('Required'),
                 email: Yup.string()
-                    .required('Required'),
+                    .required('Required')
+                    .email("Invalid email"),
                 password: Yup.string()
                     .required('Required'),
                 matchingPassword: Yup.string()
-                    .required('Required'),
+                    .required('Required')
+                    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
             })}
             onSubmit={values => console.log(values)}
+            validateOnChange={false}
+            validateOnBlur={false}
             >
             <StyledForm>
             <InputContainer>
