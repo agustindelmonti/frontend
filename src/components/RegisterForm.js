@@ -2,6 +2,26 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import styled from "styled-components";
 import * as Yup from 'yup';
+import axios from 'axios';
+
+
+const API_REGISTER_URL = `${process.env.REACT_APP_API_URL}/register`;
+
+function submitRegisterForm(values){
+    axios.post(API_REGISTER_URL, {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        matchingPassword: values.matchingPassword
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error.response);
+    });
+}
+
 
 
 export default function RegisterForm(){
@@ -20,7 +40,7 @@ export default function RegisterForm(){
                     .required('Required')
                     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
             })}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => submitRegisterForm(values)}
             validateOnChange={false}
             validateOnBlur={false}
             >
