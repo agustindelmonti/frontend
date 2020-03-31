@@ -9,8 +9,10 @@ import Interests from "./pages/Interests";
 import NewTrip from "./pages/NewTrip";
 import Profile from "./pages/Profile";
 import Trip from "./pages/Trip";
+import Error from "./pages/Error";
 
 import { UserContext } from "./components/common/UserProvider";
+import PrivateRouter from "./PrivateRouter.js";
 
 const Router = ({ children }) => {
   const { authenticated } = useContext(UserContext);
@@ -20,9 +22,12 @@ const Router = ({ children }) => {
       <Switch>
         <Route exact path="/" component={authenticated ? Home : Authentication} />
 
-        <Route exact path="/test" component={Trip}/>
+        <PrivateRouter exact path="/test">
+          <Profile/>
+        </PrivateRouter>
 
-        <Route exact path="/:username" component={Profile} />
+        <Route path="*" component={Error}/>
+
       </Switch>
     </BrowserRouter>
   );
