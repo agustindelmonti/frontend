@@ -25,7 +25,7 @@ export default function LoginForm(){
             }
           })
           .catch(function (error) {
-            if(error.response.status === 401){
+            if(typeof variable !== 'undefined' &&  error.response.status === 401){
                 setFailedLoginMessage("Wrong Credentials");
             }
             else{

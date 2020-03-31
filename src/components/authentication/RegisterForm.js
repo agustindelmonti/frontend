@@ -26,7 +26,7 @@ export default function RegisterForm(){
             }
           })
           .catch(function (error) {
-            if(error.response.status === 409){
+            if(typeof variable !== 'undefined' && error.response.status === 409){
                 setFailedRegisterMessage(error.response.data.message);
             }
             else{
