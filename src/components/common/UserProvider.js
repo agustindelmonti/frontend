@@ -13,7 +13,7 @@ const UserProvider = ({ children }) => {
     setAuthenticated(true);
   }
 
-  const handleLogin = (response) => {
+  const handleLogin = () => {
     setAuthenticated(true);
     localStorage.setItem("authenticated", JSON.stringify(true));
   };
@@ -26,7 +26,7 @@ const UserProvider = ({ children }) => {
   const actions = { onLogin: handleLogin, onLogout: handleLogout };
 
   return (
-    <UserContext.Provider value={{ authenticated, actions: actions }}>
+    <UserContext.Provider value={{ authenticated, handleLogin, handleLogout }}>
       {children}
     </UserContext.Provider>
   );
