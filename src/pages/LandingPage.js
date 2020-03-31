@@ -1,14 +1,16 @@
 import React from "react";
 
 import Router from "../Router";
-import SEO from "../components/seo";
-import Layout from "../components/layout";
+import SEO from "../components/common/Seo";
+import UserProvider from "../components/common/UserProvider";
 
 const LandingPage = () => {
   return (
     <React.Fragment>
       <SEO title="Home" />
-      <Layout />
+      <UserProvider>
+        <Router />
+      </UserProvider> 
     </React.Fragment>
   );
 };

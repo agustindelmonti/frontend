@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 
-import SEO from "../components/seo";
+import SEO from "../components/common/Seo";
 import FollowList from "../components/FollowerList";
 
 const API_URL = "http://localhost:8080";
