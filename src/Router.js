@@ -5,11 +5,9 @@ import Authentication from "./pages/Authentication.js";
 import Home from "./pages/Home";
 
 
-import Interests from "./pages/Interests";
-import NewTrip from "./pages/NewTrip";
 import Profile from "./pages/Profile";
-import Trip from "./pages/Trip";
 import Error from "./pages/Error";
+
 
 import { UserContext } from "./components/common/UserProvider";
 import PrivateRouter from "./PrivateRouter.js";
