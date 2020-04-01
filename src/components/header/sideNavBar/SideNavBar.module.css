@@ -1,0 +1,24 @@
+#sideNavBarList{
+    margin-bottom: 0;
+    margin-right: 2vw;
+    padding: 0;
+}
+
+
+#sideNavBarList li{
+    margin-left: 2vw;
+    list-style: none;
+}
+
+#sideNavBarList li p{
+    font-size: 1.2rem;
+    margin: 0;
+    height: 2rem;
+    min-width: 8vw;
+    font-weight: bold;
+}
+
+
+#sideNavBarList li i{
+    font-size: 2rem;
+}

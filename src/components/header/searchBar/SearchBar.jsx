@@ -19,8 +19,8 @@ export default function SearchBar(){
         >
             <Form>
                 <div id={styles.inputSearchContainer} onClick={handleSearchBarStatus} onBlur={handleSearchBarStatus}>
-                    { searchBarActive ? null : <i className="fas fa-search"></i> }
-                    <Field name="search" id={styles.input} placeholder="Buscar usuario" autocomplete="off"></Field>
+                    { searchBarActive ? null : <i className="fas fa-search" id={styles.searchIcon}></i> }
+                    <Field name="search" id={styles.input} placeholder="Buscar usuario" autoComplete="off"></Field>
                 </div>
             </Form>
         </Formik>

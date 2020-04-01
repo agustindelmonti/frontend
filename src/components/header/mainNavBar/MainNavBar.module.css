@@ -1,0 +1,13 @@
+#mainNavBarList{
+    margin: 0;
+    padding: 0;
+}
+
+#mainNavBarList li {
+    margin-left: 2vw; 
+    list-style: none;
+}
+
+#mainNavBarList li i{
+    font-size: 2rem;
+}
