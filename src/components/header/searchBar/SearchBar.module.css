@@ -1,0 +1,23 @@
+ #inputSearchContainer{
+    margin-left: 2vw;
+    padding-left: 5%;
+    width: 20vw;
+    border-radius: 50px;
+    background-color: #3a3b3c;
+}
+
+
+#input{
+    background-color: inherit;
+    border: none;
+    outline: none;
+    padding-left: 3%;
+    color: #e3e5ea;
+    font-size: 1.1rem;
+    line-height: 2rem;
+}
+
+::placeholder {
+    color: #999da1;
+    font-size: 1rem;
+}
